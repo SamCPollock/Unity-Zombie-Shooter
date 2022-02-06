@@ -1,8 +1,12 @@
+/// THIS IS A DOXYGEN TEST
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// DOXYGEN TEST
+/// </summary>
 public class scr_MovementComponent : MonoBehaviour
 {
     [SerializeField]
@@ -22,12 +26,20 @@ public class scr_MovementComponent : MonoBehaviour
     // References
     Vector2 inputVector = Vector2.zero;
     Vector3 moveDirection = Vector3.zero;
+    public GameObject followTarget;
+
+
+    Vector2 lookInput = Vector2.zero;
+
+    public float aimSensitivity = 1;
 
     // animator hashes
     public readonly int movementXHash = Animator.StringToHash("MovementX");
     public readonly int movementYHash = Animator.StringToHash("MovementY");
     public readonly int isJumpingHash = Animator.StringToHash("IsJumping");
     public readonly int isRunningHash = Animator.StringToHash("IsRunning");
+    public readonly int isFiringHash= Animator.StringToHash("IsFiring");
+
 
 
     private void Awake()
@@ -41,23 +53,54 @@ public class scr_MovementComponent : MonoBehaviour
 
     private void Update()
     {
-        if(playerController.isJumping)
+        // Movement
+        if(playerController.isJumping == false)
         {
-            return;
+            if (!(inputVector.magnitude > 0))
+            {
+                moveDirection = Vector3.zero;
+            }
+
+            moveDirection = (transform.forward * inputVector.y) + (transform.right * inputVector.x);
+            float currentSpeed = playerController.isRunning ? runSpeed : walkSpeed;
+
+            Vector3 movementDirection = moveDirection * (currentSpeed * Time.deltaTime);
+
+            transform.position += movementDirection;
         }
 
-        if (!(inputVector.magnitude > 0))
+       
+
+        // aiming / looking
+        // Horizontal rotation
+        followTarget.transform.rotation *= Quaternion.AngleAxis(lookInput.x * aimSensitivity, Vector3.up);
+
+        // Vertical rotation
+        followTarget.transform.rotation *= Quaternion.AngleAxis(lookInput.y * aimSensitivity, Vector3.left);
+
+
+        var angles = followTarget.transform.localEulerAngles;
+        angles.z = 0;
+
+        var angle = followTarget.transform.localEulerAngles.x;
+
+        if (angle > 180 && angle < 340)
         {
-            moveDirection = Vector3.zero;
+            angles.x = 340;
+        }
+        else if(angle < 180 && angle > 10)
+        {
+            angles.x = 10;
+
         }
 
-        moveDirection = (transform.forward * inputVector.y) + (transform.right * inputVector.x);
-        float currentSpeed = playerController.isRunning ? runSpeed : walkSpeed;
-        
-        Vector3 movementDirection = moveDirection * (currentSpeed * Time.deltaTime);
-        
-        transform.position += movementDirection;
+        followTarget.transform.transform.localEulerAngles = angles;
 
+
+        // rotate the player rotation based on the look transform
+        transform.rotation = Quaternion.Euler(0, followTarget.transform.rotation.eulerAngles.y, 0);
+
+        followTarget.transform.localEulerAngles = new Vector3(angles.x, 0, 0);
     }
 
     public void OnMovement(InputValue value)
@@ -84,6 +127,30 @@ public class scr_MovementComponent : MonoBehaviour
             playerAnimator.SetBool(isJumpingHash, playerController.isJumping);
 
         }
+    }
+
+    public void OnAim(InputValue value)
+    {
+
+        playerController.isAiming = value.isPressed;
+    }
+
+    public void OnLook(InputValue value)
+    {
+        lookInput = value.Get<Vector2>();
+        // if we aim up/down, adjust animations to have a mask to properly animate aim. 
+    }
+
+    public void OnFire(InputValue value)
+    {
+        playerController.isFiring = value.isPressed;
+        playerAnimator.SetBool(isFiringHash, playerController.isFiring);
+
+    }
+
+    public void OnReload(InputValue value)
+    {
+
     }
 
     private void OnCollisionEnter(Collision collision)
