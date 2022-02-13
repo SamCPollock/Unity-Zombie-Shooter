@@ -38,7 +38,7 @@ public class scr_MovementComponent : MonoBehaviour
     public readonly int movementYHash = Animator.StringToHash("MovementY");
     public readonly int isJumpingHash = Animator.StringToHash("IsJumping");
     public readonly int isRunningHash = Animator.StringToHash("IsRunning");
-    public readonly int isFiringHash= Animator.StringToHash("IsFiring");
+
 
 
 
@@ -84,13 +84,13 @@ public class scr_MovementComponent : MonoBehaviour
 
         var angle = followTarget.transform.localEulerAngles.x;
 
-        if (angle > 180 && angle < 340)
+        if (angle > 180 && angle < 300)
         {
-            angles.x = 340;
+            angles.x = 300;
         }
-        else if(angle < 180 && angle > 10)
+        else if(angle < 180 && angle > 70)
         {
-            angles.x = 10;
+            angles.x = 70;
 
         }
 
@@ -141,17 +141,6 @@ public class scr_MovementComponent : MonoBehaviour
         // if we aim up/down, adjust animations to have a mask to properly animate aim. 
     }
 
-    public void OnFire(InputValue value)
-    {
-        playerController.isFiring = value.isPressed;
-        playerAnimator.SetBool(isFiringHash, playerController.isFiring);
-
-    }
-
-    public void OnReload(InputValue value)
-    {
-
-    }
 
     private void OnCollisionEnter(Collision collision)
     {

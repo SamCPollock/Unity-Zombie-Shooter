@@ -51,7 +51,7 @@
                     "id": "557e6c69-f60d-4d6e-bbad-addbdc648b77",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press"
                 },
                 {
                     "name": "Fire",
