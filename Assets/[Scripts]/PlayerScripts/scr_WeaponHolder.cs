@@ -40,6 +40,8 @@ public class scr_WeaponHolder : MonoBehaviour
 
         equippedWeapon = spawnedWeapon.GetComponent<WeaponComponent>();
         equippedWeapon.Initialize(this);
+        scr_PlayerEvents.InvokeOnWeaponEquipped(equippedWeapon);
+
         gripIKSocketLocation= equippedWeapon.gripLocation; 
     }
 
@@ -73,12 +75,16 @@ public class scr_WeaponHolder : MonoBehaviour
 
     public void StartFiring()
     {
-        if (equippedWeapon.weaponStats.bulletsInClip <= 0) return;
-
-        animator.SetBool(isFiringHash, true);
-        playerController.isFiring = true;
-        equippedWeapon.StartFiringWeapon();
-        
+        if (equippedWeapon.weaponStats.bulletsInClip <= 0)
+        {
+            StartReloading();
+        }
+        else
+        {
+            animator.SetBool(isFiringHash, true);
+            playerController.isFiring = true;
+            equippedWeapon.StartFiringWeapon();
+        }
 
     }
 
@@ -92,16 +98,43 @@ public class scr_WeaponHolder : MonoBehaviour
 
     }
 
+    // input based reload
     public void OnReload(InputValue value)
     {
         playerController.isReloading = value.isPressed;
-        animator.SetBool(isReloadingHash, playerController.isReloading);
+
+        StartReloading();
+
+    }
+    //action of reload
+    public void StartReloading()
+    {
         equippedWeapon.weaponStats.bulletsInClip = equippedWeapon.weaponStats.clipSize;
+
+        if (playerController.isFiring)
+        {
+            StopFiring();
+        }
+
+        if (equippedWeapon.weaponStats.totalBullets <= 0) return;
+
+        animator.SetBool(isReloadingHash, true);
+
+        equippedWeapon.StartReloading();
+
+        InvokeRepeating(nameof(StopReloading), 0, 0.1f);
 
     }
 
-    public void StartReloading()
-    {
 
-    }    
+    public void StopReloading()
+    {
+        if (animator.GetBool(isReloadingHash)) return;
+
+        playerController.isReloading = false;
+        equippedWeapon.StopReloading();
+        animator.SetBool(isReloadingHash, false);
+        CancelInvoke(nameof(StopReloading));
+
+    }
 }

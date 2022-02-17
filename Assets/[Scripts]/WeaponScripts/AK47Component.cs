@@ -4,17 +4,6 @@ using UnityEngine;
 
 public class AK47Component : WeaponComponent
 {
-    // Start is called before the first frame update
-    void Start()
-    { 
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     protected override void FireWeapon()
     {
@@ -23,6 +12,11 @@ public class AK47Component : WeaponComponent
         if (weaponStats.bulletsInClip > 0 && !isReloading && !weaponHolder.playerController.isRunning)
         {
             base.FireWeapon();
+            if (firingEffect)
+            {
+                firingEffect.Play();
+            }
+
             Ray screenRay = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0f));
             if (Physics.Raycast(screenRay, out RaycastHit hit, weaponStats.fireDistance, weaponStats.weaponHitLayers))
             {
@@ -33,11 +27,14 @@ public class AK47Component : WeaponComponent
                 Debug.DrawRay(mainCamera.transform.position, hiteDirection.normalized * weaponStats.fireDistance, Color.red, 1.0f);
             }
 
+            print("BulletInClip Count: " + weaponStats.bulletsInClip);
+
         }
 
         else if (weaponStats.bulletsInClip <= 0)
         {
             weaponHolder.StartReloading();
+            Debug.Log("AUTORELOADING");
         }
 
     }
