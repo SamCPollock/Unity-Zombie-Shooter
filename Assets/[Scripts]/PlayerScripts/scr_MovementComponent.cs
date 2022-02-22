@@ -38,6 +38,7 @@ public class scr_MovementComponent : MonoBehaviour
     public readonly int movementYHash = Animator.StringToHash("MovementY");
     public readonly int isJumpingHash = Animator.StringToHash("IsJumping");
     public readonly int isRunningHash = Animator.StringToHash("IsRunning");
+    public readonly int aimVerticalHash = Animator.StringToHash("AimVertical");
 
 
 
@@ -48,6 +49,11 @@ public class scr_MovementComponent : MonoBehaviour
         playerController = GetComponent<scr_PlayerController>();
         rb = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
+
+        if (GameManager.instance.cursorActive)
+        {
+            AppEvents.InvokeMouseCursorEnable(false);
+        }
 
     }
 
@@ -138,6 +144,8 @@ public class scr_MovementComponent : MonoBehaviour
     public void OnLook(InputValue value)
     {
         lookInput = value.Get<Vector2>();
+        playerAnimator.SetFloat(aimVerticalHash, lookInput.y);
+
         // if we aim up/down, adjust animations to have a mask to properly animate aim. 
     }
 
