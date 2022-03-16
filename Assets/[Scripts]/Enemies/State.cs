@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class State : MonoBehaviour
+public class State
 {
     protected StateMachine stateMachine;
 
-    public float UpDateinterval { get; protected set; } = 1f;
+    public float UpdateInterval { get; protected set; } = 1f;
 
     protected State(StateMachine _stateMachine)
     {
@@ -14,6 +14,26 @@ public class State : MonoBehaviour
     }
 
     public virtual void Start()
+    {
+
+    }
+
+    public virtual void IntervalUpdate()
+    {
+
+    }
+
+    public virtual void Update()
+    {
+
+    }
+
+    public virtual void FixedUpdate()
+    {
+
+    }
+
+    public virtual void Exit()
     {
 
     }
