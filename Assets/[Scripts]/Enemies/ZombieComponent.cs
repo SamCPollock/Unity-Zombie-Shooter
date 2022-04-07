@@ -18,13 +18,13 @@ public class ZombieComponent : MonoBehaviour
         zombieAnimator = GetComponent<Animator>();
         stateMachine = GetComponent<StateMachine>();
 
-        Initialize(followTarget);
 
     }
 
     void Start()
     {
-        
+        Initialize(followTarget);
+
     }
 
     void Update()
@@ -38,6 +38,8 @@ public class ZombieComponent : MonoBehaviour
 
         ZombieIdleState idleState = new ZombieIdleState(this, stateMachine);
         stateMachine.AddState(ZombieStateType.Idle, idleState);
+
+
 
         ZombieFollowState followState = new ZombieFollowState(followTarget, this, stateMachine);
         stateMachine.AddState(ZombieStateType.Follow, followState);

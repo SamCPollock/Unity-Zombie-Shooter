@@ -26,15 +26,28 @@ public class ZombieFollowState : ZombieStates
     {
         base.IntervalUpdate();
         ownerZombie.zombieNavMeshAgent.SetDestination(followTarget.transform.position);
+
+
+        //***ADDED IN THE CODE FROM UPDATE() BECAUSE UPDATE WASN'T CALLING.
+        //float moveZ = ownerZombie.zombieNavMeshAgent.velocity.normalized.z != 0f ? 1 : 0f;
+        //ownerZombie.zombieAnimator.SetFloat(movementZHash, moveZ);
+
+        //float distanceBetween = Vector3.Distance(ownerZombie.transform.position, followTarget.transform.position);
+
+        //Debug.Log("Distance between: " + distanceBetween);
+
+        //if (distanceBetween < stoppingDistance)
+        //{
+        //    stateMachine.ChangeState(ZombieStateType.Attack);
+        //}
+
     }
 
-    // Update is called once per frame
-    public override void Update()
+    public override void Update()   //TODO: Figure out why this isn't calling each frame
     {
         base.Update();
         float moveZ = ownerZombie.zombieNavMeshAgent.velocity.normalized.z != 0f ? 1 : 0f;
         ownerZombie.zombieAnimator.SetFloat(movementZHash, moveZ);
-        Debug.Log(moveZ);
 
         float distanceBetween = Vector3.Distance(ownerZombie.transform.position, followTarget.transform.position);
         if (distanceBetween < stoppingDistance)

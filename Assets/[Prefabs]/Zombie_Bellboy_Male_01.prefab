@@ -4354,6 +4354,8 @@ GameObject:
   - component: {fileID: 8398132739205750731}
   - component: {fileID: 3492669372496305182}
   - component: {fileID: 8559576631776933181}
+  - component: {fileID: 1418195619107892}
+  - component: {fileID: 1418195619107895}
   m_Layer: 0
   m_Name: Zombie_Bellboy_Male_01
   m_TagString: Untagged
@@ -4368,7 +4370,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8493200498659453677}
-  m_LocalRotation: {x: -0, y: -0.99984777, z: -0, w: 0.01745039}
+  m_LocalRotation: {x: 0, y: -0.99984777, z: 0, w: 0.01745245}
   m_LocalPosition: {x: 2.4764137, y: 0, z: 11.93071}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4484,6 +4486,33 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1418195619107892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8493200498659453677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 643fddc4f8a3400428ef7e31ad0c6919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1418195619107895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8493200498659453677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
 --- !u!1 &8493201412616769977
 GameObject:
   m_ObjectHideFlags: 0
