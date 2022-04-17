@@ -37,7 +37,6 @@ public class StateMachine : MonoBehaviour
 
     public void ChangeState(ZombieStateType nextState)
     {
-        Debug.Log("CHANGING STATE TO " + nextState);
         if (isRunning)
         {
             StopRunningState();

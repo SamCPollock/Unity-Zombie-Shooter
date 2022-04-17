@@ -45,10 +45,7 @@ public class scr_WeaponHolder : MonoBehaviour
         gripIKSocketLocation= equippedWeapon.gripLocation; 
     }
 
-    void Update()
-    {
-        
-    }
+
 
     private void OnAnimatorIK(int layerIndex)
     {
@@ -111,6 +108,12 @@ public class scr_WeaponHolder : MonoBehaviour
     {
         equippedWeapon.weaponStats.bulletsInClip = equippedWeapon.weaponStats.clipSize;
 
+        //if (equippedWeapon.isReloading || equippedWeapon.weaponStats.bulletsInClip == equippedWeapon.weaponStats.clipSize) return;
+        //if (equippedWeapon.weaponStats.bulletsInClip == 30)
+        //{
+        //    Debug.Log("FULL AMMO!");
+        //    return;
+        //}
         if (playerController.isFiring)
         {
             StopFiring();

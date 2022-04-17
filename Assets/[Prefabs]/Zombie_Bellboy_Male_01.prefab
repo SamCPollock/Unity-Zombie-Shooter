@@ -4353,9 +4353,11 @@ GameObject:
   - component: {fileID: 8491522202828813101}
   - component: {fileID: 8398132739205750731}
   - component: {fileID: 3492669372496305182}
+  - component: {fileID: 1870283493138680610}
   - component: {fileID: 8559576631776933181}
   - component: {fileID: 1418195619107892}
   - component: {fileID: 1418195619107895}
+  - component: {fileID: 8312501727124410934}
   m_Layer: 0
   m_Name: Zombie_Bellboy_Male_01
   m_TagString: Untagged
@@ -4459,11 +4461,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efcb6d61c8903984a8c59eeed00f6b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombieDamage: 5
+  zombieDamage: 15
   zombieNavMeshAgent: {fileID: 0}
   zombieAnimator: {fileID: 0}
   stateMachine: {fileID: 0}
   followTarget: {fileID: 0}
+--- !u!114 &1870283493138680610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8493200498659453677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09071c2bf0f03cc4ead38a209dfa82e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 150
+  maxHealth: 150
 --- !u!195 &8559576631776933181
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4474,7 +4490,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -4513,6 +4529,20 @@ MonoBehaviour:
   _data:
     _json: '{"declarations":{"collection":{"$content":[],"$version":"A"},"$version":"A"}}'
     _objectReferences: []
+--- !u!136 &8312501727124410934
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8493200498659453677}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.20870598
+  m_Height: 2.1278424
+  m_Direction: 1
+  m_Center: {x: 0.009432256, y: 0.7906258, z: -1.5185311e-11}
 --- !u!1 &8493201412616769977
 GameObject:
   m_ObjectHideFlags: 0

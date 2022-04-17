@@ -2,15 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IDamageable : MonoBehaviour
+public interface IDamageable
 {
-    void Start()
-    {
-        
-    }
+    void TakeDamage(float damage);
+    void Destroy();
 
-    void Update()
-    {
-        
-    }
 }

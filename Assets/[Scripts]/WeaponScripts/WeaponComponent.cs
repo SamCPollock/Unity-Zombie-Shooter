@@ -38,9 +38,9 @@ public class WeaponComponent : MonoBehaviour
 {
     public Transform gripLocation;
     public Transform firingEffectLocation;
-    
+
     protected scr_WeaponHolder weaponHolder;
-    [SerializeField] protected ParticleSystem firingEffect; 
+    [SerializeField] protected ParticleSystem firingEffect;
 
 
     [SerializeField]
@@ -60,7 +60,7 @@ public class WeaponComponent : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     public void Initialize(scr_WeaponHolder _weaponHolder)
@@ -73,7 +73,7 @@ public class WeaponComponent : MonoBehaviour
     public virtual void StartFiringWeapon()
     {
         isFiring = true;
-        if(weaponStats.repeating)
+        if (weaponStats.repeating)
         {
             InvokeRepeating(nameof(FireWeapon), weaponStats.fireStartDelay, weaponStats.fireRate);
         }
@@ -88,7 +88,7 @@ public class WeaponComponent : MonoBehaviour
         isFiring = false;
         CancelInvoke(nameof(FireWeapon));
 
-        if(firingEffect.isPlaying)
+        if (firingEffect.isPlaying)
         {
             firingEffect.Stop();
         }
@@ -97,10 +97,9 @@ public class WeaponComponent : MonoBehaviour
 
     protected virtual void FireWeapon()
     {
-        print("Firing Weapon!");
         weaponStats.bulletsInClip--;
     }
-    
+
     // deal with ammo counts and maybe particle effects. 
     public virtual void StartReloading()
     {
@@ -116,27 +115,20 @@ public class WeaponComponent : MonoBehaviour
 
     protected virtual void ReloadWeapon()
     {
-        // if theres a firing effect, hide it here. 
+        // if there's a firing effect, hide it here
 
-        if (firingEffect.isPlaying)
+        int bulletsToReload = weaponStats.totalBullets - (weaponStats.clipSize - weaponStats.bulletsInClip);
+        // -------------- COD style reload, subtract bullets ----------------------
+        if (bulletsToReload > 0)
         {
-            firingEffect.Stop();
-        }
-
-
-        int bulletsToReload = weaponStats.clipSize - weaponStats.totalBullets;
-
-        if (bulletsToReload < 0)
-        {
+            weaponStats.totalBullets = bulletsToReload;
             weaponStats.bulletsInClip = weaponStats.clipSize;
-            weaponStats.totalBullets -= weaponStats.clipSize;
         }
         else
+
         {
-            weaponStats.bulletsInClip = weaponStats.totalBullets;
+            weaponStats.bulletsInClip += weaponStats.totalBullets;
             weaponStats.totalBullets = 0;
         }
-
-        StopReloading();
     }
 }
